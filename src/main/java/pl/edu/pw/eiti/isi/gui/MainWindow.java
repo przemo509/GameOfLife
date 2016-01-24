@@ -12,7 +12,7 @@ public class MainWindow extends JFrame {
     private static final Logger logger = Logger.getLogger(MainWindow.class.getName());
     private static MainWindow instance = new MainWindow();
 
-    private final DrawingPlane drawingPlane = new DrawingPlane();
+    private final DrawingPlane drawingPlane = DrawingPlane.getInstance();
     private Board board;
 
     public static MainWindow getInstance() {
