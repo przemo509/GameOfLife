@@ -33,8 +33,7 @@ public class MainToolBar extends JToolBar {
         toolPause = new JButton("Pauza");
         toolPause.addActionListener(e -> {
             timer.stop();
-            toolPause.setVisible(false);
-            toolAuto.setVisible(true);
+            setAutoPlay(false);
         });
         toolPause.setVisible(false);
         add(toolPause);
@@ -43,8 +42,7 @@ public class MainToolBar extends JToolBar {
     private void addToolAuto() {
         toolAuto = new JButton("Auto");
         toolAuto.addActionListener(e -> {
-            toolPause.setVisible(true);
-            toolAuto.setVisible(false);
+            setAutoPlay(true);
             Integer delay = (Integer) (toolInterval.getValue());
             timer.setDelay(delay);
             timer.setInitialDelay(delay);
@@ -53,8 +51,15 @@ public class MainToolBar extends JToolBar {
         add(toolAuto);
     }
 
+    private void setAutoPlay(boolean autoPlay) {
+        toolNextFrame.setVisible(!autoPlay);
+        toolPause.setVisible(autoPlay);
+        toolAuto.setVisible(!autoPlay);
+    }
+
     private void addToolInterval() {
         toolInterval = new JSpinner(new SpinnerNumberModel(1000, 100, Integer.MAX_VALUE, 10));
+        toolInterval.addChangeListener(e -> timer.setDelay((Integer) (toolInterval.getValue())));
 
         add(new JLabel("Czas: "));
         add(toolInterval);
