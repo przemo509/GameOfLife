@@ -8,8 +8,8 @@ import java.awt.image.BufferedImage;
 
 public class DrawingPlane extends JPanel {
     public static final Color BACKGROUND_COLOR = Color.WHITE;
-    public static final Color LINES_COLOR = Color.DARK_GRAY;
-    private static final Color LIFE_COLOR = Color.GREEN;
+    public static final Color LINES_COLOR = Color.LIGHT_GRAY;
+    private static final Color LIFE_COLOR = new Color(53, 162, 255);
 
     private static DrawingPlane instance = new DrawingPlane();
 
