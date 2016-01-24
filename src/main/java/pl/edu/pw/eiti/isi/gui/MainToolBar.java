@@ -58,7 +58,7 @@ public class MainToolBar extends JToolBar {
     }
 
     private void addToolInterval() {
-        toolInterval = new JSpinner(new SpinnerNumberModel(1000, 100, Integer.MAX_VALUE, 10));
+        toolInterval = new JSpinner(new SpinnerNumberModel(300, 10, Integer.MAX_VALUE, 10));
         toolInterval.addChangeListener(e -> timer.setDelay((Integer) (toolInterval.getValue())));
 
         add(new JLabel("Czas: "));
