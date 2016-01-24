@@ -1,9 +1,20 @@
 group 'GameOfLife'
 version '1.0.0'
 
-apply plugin: 'java'
+buildscript {
+    repositories { jcenter() }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.2'
+    }
+}
 
-sourceCompatibility = 1.5
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+mainClassName = 'pl.edu.pw.eiti.isi.GameOfLife'
+
+compileJava.options.encoding = 'UTF-8'
 
 repositories {
     mavenCentral()
