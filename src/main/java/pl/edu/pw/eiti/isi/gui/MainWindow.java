@@ -12,7 +12,7 @@ public class MainWindow extends JFrame {
     private static final Logger logger = Logger.getLogger(MainWindow.class.getName());
     private static MainWindow instance = new MainWindow();
 
-    private final JPanel drawingPlane = new JPanel(true);
+    private final DrawingPlane drawingPlane = new DrawingPlane();
     private Board board;
 
     public static MainWindow getInstance() {
@@ -46,12 +46,6 @@ public class MainWindow extends JFrame {
         int j = position.y / 20;
         board.setCell(i, j, !board.getCell(i, j));
         repaint();
-    }
-
-    @Override
-    public void paint(Graphics g) {
-        super.paintComponents(g);
-        BoardDrawingUtils.drawBoard((Graphics2D) drawingPlane.getGraphics(), board, drawingPlane.getWidth(), drawingPlane.getHeight());
     }
 
     public Board getBoard() {

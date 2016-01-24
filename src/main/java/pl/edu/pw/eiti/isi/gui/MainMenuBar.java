@@ -1,6 +1,5 @@
 package pl.edu.pw.eiti.isi.gui;
 
-import pl.edu.pw.eiti.isi.gui.listener.MenuCloseListener;
 import pl.edu.pw.eiti.isi.properties.AppProperties;
 
 import javax.swing.*;
@@ -19,7 +18,6 @@ public class MainMenuBar extends JMenuBar {
 
     private void addFileMenu() {
         JMenu menu = new JMenu("Plik");
-        menu.getPopupMenu().addPopupMenuListener(new MenuCloseListener());
 
         addNewEmptyBoardMenuItem(menu);
         addBoardFromFileMenuItem(menu);
