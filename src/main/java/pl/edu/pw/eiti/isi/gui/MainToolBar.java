@@ -32,11 +32,15 @@ public class MainToolBar extends JToolBar {
     private void addToolPause() {
         toolPause = new JButton("Pauza");
         toolPause.addActionListener(e -> {
-            timer.stop();
-            setAutoPlay(false);
+            pause();
         });
         toolPause.setVisible(false);
         add(toolPause);
+    }
+
+    public void pause() {
+        timer.stop();
+        setAutoPlay(false);
     }
 
     private void addToolAuto() {

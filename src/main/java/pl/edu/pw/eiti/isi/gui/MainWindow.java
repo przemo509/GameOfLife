@@ -66,6 +66,10 @@ public class MainWindow extends JFrame {
         repaint();
     }
 
+    public void saveBoardToFile(String filePath) {
+        board.saveToFile(filePath);
+    }
+
     public void nextFrame() {
         logger.log(Level.FINEST, "Next frame: {0}", board.getFrame());
         board.nextFrame();

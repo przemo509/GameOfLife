@@ -1,11 +1,15 @@
 package pl.edu.pw.eiti.isi.model;
 
 import java.io.File;
+import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Board {
+    private static final String DEFAULT_ALIVE_CHAR = "#";
+    private static final String DEFAULT_DEAD_CHAR = "_";
+
     private static final int MIN_NEIGHBOURS_DEAD = 3;
     private static final int MAX_NEIGHBOURS_DEAD = 3;
     private static final int MIN_NEIGHBOURS_ALIVE = 2;
@@ -107,5 +111,30 @@ public class Board {
                 ? (neighbours >= MIN_NEIGHBOURS_ALIVE && neighbours <= MAX_NEIGHBOURS_ALIVE)
                 : (neighbours >= MIN_NEIGHBOURS_DEAD && neighbours <= MAX_NEIGHBOURS_DEAD);
         return neighbours;
+    }
+
+    public void saveToFile(String filePath) {
+        try {
+            PrintWriter writer = new PrintWriter(filePath);
+            writer.print(width);
+            writer.print(" ");
+            writer.print(height);
+            writer.print(" ");
+            writer.println(DEFAULT_ALIVE_CHAR);
+
+            for (int j = 0; j < height; j++) {
+                String separator = "";
+                for (int i = 0; i < width; i++) {
+                    writer.print(separator);
+                    writer.print(board[i][j] ? DEFAULT_ALIVE_CHAR : DEFAULT_DEAD_CHAR);
+                    separator = " ";
+                }
+                writer.println();
+            }
+            writer.close();
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+
     }
 }
