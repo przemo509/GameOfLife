@@ -21,6 +21,7 @@ public class Board {
     private int height;
     private boolean[][] board;
     private int frame = 0;
+    private int aliveCells = 0;
 
     public Board(int width, int height) {
         this.width = width;
@@ -42,7 +43,9 @@ public class Board {
                 for (int i = 0; i < width; i++) {
                     String cell = scanner.next();
                     line += cell + " ";
-                    board[i][j] = lifeChar.equals(cell);
+                    boolean isCellAlive = lifeChar.equals(cell);
+                    board[i][j] = isCellAlive;
+                    aliveCells += isCellAlive ? 1 : 0;
                 }
                 logger.log(Level.FINEST, line);
             }
@@ -73,6 +76,11 @@ public class Board {
     }
 
     public void setCell(int i, int j, boolean value) {
+        if(!board[i][j] && value) {
+            aliveCells++;
+        } else if(board[i][j] && !value) {
+            aliveCells--;
+        }
         board[i][j] = value;
     }
 
@@ -80,7 +88,12 @@ public class Board {
         return frame;
     }
 
+    public int getAliveCells() {
+        return aliveCells;
+    }
+
     public int nextFrame() {
+        aliveCells = 0;
         boolean[][] newBoard = createEmptyBoard(width, height);
         logger.log(Level.FINEST, "Neighbours count at frame {0}", frame);
         logger.log(Level.FINEST, "# # # # # # # # # # # # # # # # # # # # # # # # # #");
@@ -108,9 +121,11 @@ public class Board {
                 // TODO cut off (optimization)
             }
         }
-        newBoard[x][y] = board[x][y]
+        boolean isAlive = board[x][y]
                 ? (neighbours >= MIN_NEIGHBOURS_ALIVE && neighbours <= MAX_NEIGHBOURS_ALIVE)
                 : (neighbours >= MIN_NEIGHBOURS_DEAD && neighbours <= MAX_NEIGHBOURS_DEAD);
+        newBoard[x][y] = isAlive;
+        aliveCells += isAlive ? 1 : 0;
         return neighbours;
     }
 

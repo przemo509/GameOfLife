@@ -45,6 +45,7 @@ public class MainWindow extends JFrame {
         int i = position.x / 20;
         int j = position.y / 20;
         board.setCell(i, j, !board.getCell(i, j));
+        MainToolBar.getInstance().setAliveCells(board.getAliveCells());
         repaint();
     }
 
@@ -63,6 +64,7 @@ public class MainWindow extends JFrame {
     private void newBoard(Board board) {
         this.board = board;
         MainToolBar.getInstance().setFrameCounter(board.getFrame());
+        MainToolBar.getInstance().setAliveCells(board.getAliveCells());
         // TODO adjust window size
         repaint();
     }

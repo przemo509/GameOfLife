@@ -10,6 +10,7 @@ public class MainToolBar extends JToolBar {
     private JButton toolPause;
     private JButton toolAuto;
     private JSpinner toolInterval;
+    private JLabel cellsCounter;
     private final Timer timer;
 
     public static MainToolBar getInstance() {
@@ -22,6 +23,7 @@ public class MainToolBar extends JToolBar {
         addToolPause();
         addToolAuto();
         addToolInterval();
+        addCellsCounter();
         timer = new Timer(Integer.MAX_VALUE, e -> nextFrame());
     }
 
@@ -39,11 +41,17 @@ public class MainToolBar extends JToolBar {
 
     private void nextFrame() {
         int frame = MainWindow.getInstance().nextFrame();
+        int aliveCells = MainWindow.getInstance().getBoard().getAliveCells();
         setFrameCounter(frame);
+        setAliveCells(aliveCells);
     }
 
     public void setFrameCounter(int frame) {
-        framesCounter.setText(String.valueOf(frame));
+        framesCounter.setText(String.format("%03d", frame));
+    }
+
+    public void setAliveCells(int cells) {
+        cellsCounter.setText(String.format("%06d", cells));
     }
 
     private void addToolPause() {
@@ -83,5 +91,11 @@ public class MainToolBar extends JToolBar {
         add(new JLabel("Czas: "));
         add(toolInterval);
         add(new JLabel(" ms"));
+    }
+
+    private void addCellsCounter() {
+        add(new JLabel("Liczba żywych komórek: "));
+        cellsCounter = new JLabel("-");
+        add(cellsCounter);
     }
 }
