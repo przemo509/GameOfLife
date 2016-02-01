@@ -23,6 +23,7 @@ public class DrawingPlane extends JPanel {
     };
 
     private static DrawingPlane instance = new DrawingPlane();
+    private int cellSize;
 
     public static DrawingPlane getInstance() {
         return instance;
@@ -48,7 +49,7 @@ public class DrawingPlane extends JPanel {
 
     private void drawBoardOnGraphics(Graphics2D g, Board board, int imageWidth, int imageHeight) {
         clearPlane(g, imageWidth, imageHeight);
-        int cellSize = calculateCellSize(board.getWidth(), board.getHeight(), imageWidth, imageHeight);
+        calculateCellSize(board.getWidth(), board.getHeight(), imageWidth, imageHeight);
 
         g.setColor(LINES_COLOR);
         for (int i = 0; i < board.getWidth(); i++) {
@@ -74,7 +75,11 @@ public class DrawingPlane extends JPanel {
         g.fillRect(0, 0, imageWidth, imageHeight);
     }
 
-    private int calculateCellSize(int boardWidth, int boardHeight, int imageWidth, int imageHeight) {
-        return (int)Math.min((float)imageWidth / boardWidth, (float)imageHeight / boardHeight);
+    private void calculateCellSize(int boardWidth, int boardHeight, int imageWidth, int imageHeight) {
+        cellSize = (int)Math.min((float)imageWidth / boardWidth, (float)imageHeight / boardHeight);
+    }
+
+    public int getCellSize() {
+        return cellSize;
     }
 }

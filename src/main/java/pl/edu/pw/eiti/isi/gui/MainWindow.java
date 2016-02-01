@@ -42,8 +42,8 @@ public class MainWindow extends JFrame {
 
     public void onMouseClick(Point position) {
         logger.log(Level.FINEST, "Clicked point: [{0},{1}]", new Object[]{position.x, position.y});
-        int i = position.x / 20;
-        int j = position.y / 20;
+        int i = position.x / drawingPlane.getCellSize();
+        int j = position.y / drawingPlane.getCellSize();
         if(i >= 0 && i < board.getWidth() && j >= 0 && j < board.getHeight()) {
             board.setCell(i, j, !board.getCell(i, j));
             board.recalculateNeighbours();
