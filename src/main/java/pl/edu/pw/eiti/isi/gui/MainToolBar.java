@@ -1,6 +1,7 @@
 package pl.edu.pw.eiti.isi.gui;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class MainToolBar extends JToolBar {
     private static MainToolBar instance = new MainToolBar();
@@ -92,6 +93,7 @@ public class MainToolBar extends JToolBar {
 
     private void addToolInterval() {
         toolInterval = new JSpinner(new SpinnerNumberModel(300, 10, Integer.MAX_VALUE, 10));
+        toolInterval.setMinimumSize(new Dimension(50, toolInterval.getMinimumSize().height));
         toolInterval.addChangeListener(e -> timer.setDelay((Integer) (toolInterval.getValue())));
 
         addSeparator();
