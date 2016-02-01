@@ -47,19 +47,20 @@ public class DrawingPlane extends JPanel {
 
     private void drawBoardOnGraphics(Graphics2D g, Board board, int imageWidth, int imageHeight) {
         clearPlane(g, imageWidth, imageHeight);
+        int cellSize = calculateCellSize(board.getWidth(), board.getHeight(), imageWidth, imageHeight);
 
         g.setColor(LINES_COLOR);
         for (int i = 0; i < board.getWidth(); i++) {
             for (int j = 0; j < board.getHeight(); j++) {
-                g.drawRect(i * 20, j * 20, 20, 20);
+                g.drawRect(i * cellSize, j * cellSize, cellSize, cellSize);
                 if (MainToolBar.getInstance().showNeighbourColors()) {
                     g.setColor(RAINBOW[board.getNeighbours(i, j)]);
-                    g.fillRect(i * 20 + 1, j * 20 + 1, 20 - 1, 20 - 1);
+                    g.fillRect(i * cellSize + 1, j * cellSize + 1, cellSize - 1, cellSize - 1);
                     g.setColor(LINES_COLOR);
                 } else {
                     if (board.getCell(i, j)) {
                         g.setColor(LIFE_COLOR);
-                        g.fillRect(i * 20 + 1, j * 20 + 1, 20 - 1, 20 - 1);
+                        g.fillRect(i * cellSize + 1, j * cellSize + 1, cellSize - 1, cellSize - 1);
                         g.setColor(LINES_COLOR);
                     }
                 }
@@ -70,5 +71,9 @@ public class DrawingPlane extends JPanel {
     private static void clearPlane(Graphics2D g, int imageWidth, int imageHeight) {
         g.setColor(BACKGROUND_COLOR);
         g.fillRect(0, 0, imageWidth, imageHeight);
+    }
+
+    private int calculateCellSize(int boardWidth, int boardHeight, int imageWidth, int imageHeight) {
+        return (int)Math.min((float)imageWidth / boardWidth, (float)imageHeight / boardHeight);
     }
 }
