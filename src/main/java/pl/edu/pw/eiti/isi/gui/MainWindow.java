@@ -45,6 +45,7 @@ public class MainWindow extends JFrame {
         int i = position.x / 20;
         int j = position.y / 20;
         board.setCell(i, j, !board.getCell(i, j));
+        board.recalculateNeighbours();
         MainToolBar.getInstance().setAliveCells(board.getAliveCells());
         repaint();
     }

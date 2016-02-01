@@ -10,6 +10,7 @@ public class MainToolBar extends JToolBar {
     private JButton toolPause;
     private JButton toolAuto;
     private JSpinner toolInterval;
+    private JCheckBox toolNeighbourColors;
     private JLabel cellsCounter;
     private final Timer timer;
 
@@ -23,6 +24,7 @@ public class MainToolBar extends JToolBar {
         addToolPause();
         addToolAuto();
         addToolInterval();
+        addToolNeighbourColors();
         addCellsCounter();
         timer = new Timer(Integer.MAX_VALUE, e -> nextFrame());
     }
@@ -97,6 +99,17 @@ public class MainToolBar extends JToolBar {
         add(toolInterval);
         add(new JLabel(" ms"));
         addSeparator();
+    }
+
+    private void addToolNeighbourColors() {
+        toolNeighbourColors = new JCheckBox("wizuzalizacja sąsiadów");
+        toolNeighbourColors.addChangeListener(e -> MainWindow.getInstance().repaint());
+        add(toolNeighbourColors);
+        addSeparator();
+    }
+
+    public boolean showNeighbourColors() {
+        return toolNeighbourColors.isSelected();
     }
 
     private void addCellsCounter() {

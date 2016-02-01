@@ -10,6 +10,16 @@ public class DrawingPlane extends JPanel {
     public static final Color BACKGROUND_COLOR = Color.WHITE;
     public static final Color LINES_COLOR = Color.LIGHT_GRAY;
     private static final Color LIFE_COLOR = new Color(53, 162, 255);
+    private static final Color[] RAINBOW = {
+            BACKGROUND_COLOR,
+            new Color(255, 198, 174),
+            new Color(255, 209, 130),
+            new Color(251, 231, 68),
+            new Color(193, 255, 33),
+            new Color(75, 255, 0),
+            new Color(0, 255, 0),
+            new Color(0, 255, 255)
+    };
 
     private static DrawingPlane instance = new DrawingPlane();
 
@@ -42,12 +52,17 @@ public class DrawingPlane extends JPanel {
         for (int i = 0; i < board.getWidth(); i++) {
             for (int j = 0; j < board.getHeight(); j++) {
                 g.drawRect(i * 20, j * 20, 20, 20);
-                if (board.getCell(i, j)) {
-                    g.setColor(LIFE_COLOR);
+                if (MainToolBar.getInstance().showNeighbourColors()) {
+                    g.setColor(RAINBOW[board.getNeighbours(i, j)]);
                     g.fillRect(i * 20 + 1, j * 20 + 1, 20 - 1, 20 - 1);
                     g.setColor(LINES_COLOR);
+                } else {
+                    if (board.getCell(i, j)) {
+                        g.setColor(LIFE_COLOR);
+                        g.fillRect(i * 20 + 1, j * 20 + 1, 20 - 1, 20 - 1);
+                        g.setColor(LINES_COLOR);
+                    }
                 }
-
             }
         }
     }

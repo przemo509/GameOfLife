@@ -2,6 +2,7 @@ package pl.edu.pw.eiti.isi.model;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,13 +21,14 @@ public class Board {
     private int width;
     private int height;
     private boolean[][] board;
+    private int[][] neighbours;
     private int frame = 0;
     private int aliveCells = 0;
 
     public Board(int width, int height, int randomCells) {
         this.width = width;
         this.height = height;
-        board = createEmptyBoard(width, height);
+        buildEmptyBoard(width, height);
         addRandomCells(randomCells);
     }
 
@@ -37,7 +39,7 @@ public class Board {
             width = scanner.nextInt();
             height = scanner.nextInt();
             String lifeChar = scanner.next();
-            board = createEmptyBoard(width, height);
+            buildEmptyBoard(width, height);
             logger.log(Level.FINEST, "Board read from file:");
             for (int j = 0; j < height; j++) {
                 String line = "";
@@ -50,18 +52,16 @@ public class Board {
                 }
                 logger.log(Level.FINEST, line);
             }
+            recalculateNeighbours();
         } catch (Throwable e) {
             e.printStackTrace();
         }
 
     }
 
-    private boolean[][] createEmptyBoard(int width, int height) {
-        boolean[][] board = new boolean[width][];
-        for (int j = 0; j < width; j++) {
-            board[j] = new boolean[height];
-        }
-        return board;
+    private void buildEmptyBoard(int width, int height) {
+        board = (boolean[][]) Array.newInstance(boolean.class, width, height);
+        neighbours = (int[][]) Array.newInstance(int.class, width, height);
     }
 
     private void addRandomCells(int randomCells) {
@@ -69,6 +69,16 @@ public class Board {
             int randX = (int) Math.floor(Math.random() * width);
             int randY = (int) Math.floor(Math.random() * height);
             setCell(randX, randY, true);
+        }
+        recalculateNeighbours();
+    }
+
+    public void recalculateNeighbours() {
+        boolean[][] unused = (boolean[][]) Array.newInstance(boolean.class, width, height);
+        for (int j = 1; j < height - 1; j++) {
+            for (int i = 1; i < width - 1; i++) {
+                neighbours[i][j] = refreshCell(i, j, unused);
+            }
         }
     }
 
@@ -82,6 +92,10 @@ public class Board {
 
     public boolean getCell(int i, int j) {
         return board[i][j];
+    }
+
+    public int getNeighbours(int i, int j) {
+        return neighbours[i][j];
     }
 
     public void setCell(int i, int j, boolean value) {
@@ -103,13 +117,14 @@ public class Board {
 
     public int nextFrame() {
         aliveCells = 0;
-        boolean[][] newBoard = createEmptyBoard(width, height);
+        boolean[][] newBoard = (boolean[][]) Array.newInstance(boolean.class, width, height);
         logger.log(Level.FINEST, "Neighbours count at frame {0}", frame);
         logger.log(Level.FINEST, "# # # # # # # # # # # # # # # # # # # # # # # # # #");
         for (int j = 1; j < height - 1; j++) {
             String line = "#";
             for (int i = 1; i < width - 1; i++) {
-                line += " " + refreshCell(i, j, newBoard);
+                neighbours[i][j] = refreshCell(i, j, newBoard);
+                line += " " + neighbours[i][j];
             }
             logger.log(Level.FINEST, line + " #");
         }
