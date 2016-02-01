@@ -53,6 +53,9 @@ public class MainToolBar extends JToolBar {
 
     public void setAliveCells(int cells) {
         cellsCounter.setText(String.format("%06d", cells));
+        if (cells <= 0) {
+            pause();
+        }
     }
 
     private void addToolPause() {
