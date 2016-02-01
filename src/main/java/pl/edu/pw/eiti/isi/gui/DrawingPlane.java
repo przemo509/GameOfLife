@@ -18,7 +18,8 @@ public class DrawingPlane extends JPanel {
             new Color(193, 255, 33),
             new Color(75, 255, 0),
             new Color(0, 255, 0),
-            new Color(0, 255, 255)
+            new Color(0, 255, 255),
+            new Color(0, 75, 255)
     };
 
     private static DrawingPlane instance = new DrawingPlane();
