@@ -80,7 +80,7 @@ public class Board {
         return frame;
     }
 
-    public void nextFrame() {
+    public int nextFrame() {
         boolean[][] newBoard = createEmptyBoard(width, height);
         logger.log(Level.FINEST, "Neighbours count at frame {0}", frame);
         logger.log(Level.FINEST, "# # # # # # # # # # # # # # # # # # # # # # # # # #");
@@ -94,6 +94,7 @@ public class Board {
         logger.log(Level.FINEST, "# # # # # # # # # # # # # # # # # # # # # # # # # #");
         frame++;
         board = newBoard;
+        return frame;
     }
 
     private int refreshCell(int x, int y, boolean[][] newBoard) {

@@ -5,6 +5,7 @@ import javax.swing.*;
 public class MainToolBar extends JToolBar {
     private static MainToolBar instance = new MainToolBar();
 
+    private JLabel framesCounter;
     private JButton toolNextFrame;
     private JButton toolPause;
     private JButton toolAuto;
@@ -16,24 +17,38 @@ public class MainToolBar extends JToolBar {
     }
 
     private MainToolBar() {
+        addFramesCounter();
         addToolNextFrame();
         addToolPause();
         addToolAuto();
         addToolInterval();
-        timer = new Timer(Integer.MAX_VALUE, e -> MainWindow.getInstance().nextFrame());
+        timer = new Timer(Integer.MAX_VALUE, e -> nextFrame());
+    }
+
+    private void addFramesCounter() {
+        add(new JLabel("Klatka: "));
+        framesCounter = new JLabel("-");
+        add(framesCounter);
     }
 
     private void addToolNextFrame() {
-        toolNextFrame = new JButton("Jedna klatka");
-        toolNextFrame.addActionListener(e -> MainWindow.getInstance().nextFrame());
+        toolNextFrame = new JButton("Następna");
+        toolNextFrame.addActionListener(e -> nextFrame());
         add(toolNextFrame);
+    }
+
+    private void nextFrame() {
+        int frame = MainWindow.getInstance().nextFrame();
+        setFrameCounter(frame);
+    }
+
+    public void setFrameCounter(int frame) {
+        framesCounter.setText(String.valueOf(frame));
     }
 
     private void addToolPause() {
         toolPause = new JButton("Pauza");
-        toolPause.addActionListener(e -> {
-            pause();
-        });
+        toolPause.addActionListener(e -> pause());
         toolPause.setVisible(false);
         add(toolPause);
     }
@@ -69,5 +84,4 @@ public class MainToolBar extends JToolBar {
         add(toolInterval);
         add(new JLabel(" ms"));
     }
-
 }

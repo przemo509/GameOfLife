@@ -62,6 +62,7 @@ public class MainWindow extends JFrame {
 
     private void newBoard(Board board) {
         this.board = board;
+        MainToolBar.getInstance().setFrameCounter(board.getFrame());
         // TODO adjust window size
         repaint();
     }
@@ -70,9 +71,9 @@ public class MainWindow extends JFrame {
         board.saveToFile(filePath);
     }
 
-    public void nextFrame() {
-        logger.log(Level.FINEST, "Next frame: {0}", board.getFrame());
-        board.nextFrame();
+    public int nextFrame() {
+        int frame = board.nextFrame();
         repaint();
+        return frame;
     }
 }
