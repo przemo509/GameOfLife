@@ -31,6 +31,7 @@ public class MainToolBar extends JToolBar {
         add(new JLabel("Klatka: "));
         framesCounter = new JLabel("-");
         add(framesCounter);
+        addSeparator();
     }
 
     private void addToolNextFrame() {
@@ -88,9 +89,11 @@ public class MainToolBar extends JToolBar {
         toolInterval = new JSpinner(new SpinnerNumberModel(300, 10, Integer.MAX_VALUE, 10));
         toolInterval.addChangeListener(e -> timer.setDelay((Integer) (toolInterval.getValue())));
 
+        addSeparator();
         add(new JLabel("Czas: "));
         add(toolInterval);
         add(new JLabel(" ms"));
+        addSeparator();
     }
 
     private void addCellsCounter() {
