@@ -44,10 +44,12 @@ public class MainWindow extends JFrame {
         logger.log(Level.FINEST, "Clicked point: [{0},{1}]", new Object[]{position.x, position.y});
         int i = position.x / 20;
         int j = position.y / 20;
-        board.setCell(i, j, !board.getCell(i, j));
-        board.recalculateNeighbours();
-        MainToolBar.getInstance().setAliveCells(board.getAliveCells());
-        repaint();
+        if(i >= 0 && i < board.getWidth() && j >= 0 && j < board.getHeight()) {
+            board.setCell(i, j, !board.getCell(i, j));
+            board.recalculateNeighbours();
+            MainToolBar.getInstance().setAliveCells(board.getAliveCells());
+            repaint();
+        }
     }
 
     public Board getBoard() {
