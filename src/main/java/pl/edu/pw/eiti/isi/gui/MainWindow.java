@@ -29,7 +29,7 @@ public class MainWindow extends JFrame {
         drawingPlane.addMouseListener(DrawingPlaneMouseListener.getInstance());
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        newEmptyBoard(30, 15);
+        newEmptyBoard(30, 15, 0);
     }
 
     private void addComponents() {
@@ -53,8 +53,8 @@ public class MainWindow extends JFrame {
         return board;
     }
 
-    public void newEmptyBoard(int width, int height) {
-        newBoard(new Board(width, height));
+    public void newEmptyBoard(int width, int height, int randomCells) {
+        newBoard(new Board(width, height, randomCells));
     }
 
     public void newBoardFromFile(String path) {

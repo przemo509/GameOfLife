@@ -8,6 +8,7 @@ public class NewEmptyBoardDialog extends JDialog {
 
     private JSpinner widthInput;
     private JSpinner heightInput;
+    private JSpinner randomCells;
 
     public NewEmptyBoardDialog() {
         super(MainWindow.getInstance(), "Nowa gra w życie", true);
@@ -20,9 +21,10 @@ public class NewEmptyBoardDialog extends JDialog {
     }
 
     private void addComponents() {
-        setLayout(new GridLayout(3, 2, 10, 2));
+        setLayout(new GridLayout(4, 2, 10, 2));
         addWidthInput();
         addHeightInput();
+        addRandomCells();
         addButtons();
     }
 
@@ -34,6 +36,11 @@ public class NewEmptyBoardDialog extends JDialog {
     private void addHeightInput() {
         heightInput = new JSpinner(new SpinnerNumberModel(15, 10, Integer.MAX_VALUE, 1));
         addFormItem("Wysokość gry (liczba komórek)", heightInput);
+    }
+
+    private void addRandomCells() {
+        randomCells = new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
+        addFormItem("Wstaw losowe komórki", randomCells);
     }
 
     private void addFormItem(String label, JComponent component) {
@@ -48,7 +55,7 @@ public class NewEmptyBoardDialog extends JDialog {
     }
 
     protected void onOkClick() {
-        MainWindow.getInstance().newEmptyBoard((Integer) (widthInput.getValue()), (Integer) (heightInput.getValue()));
+        MainWindow.getInstance().newEmptyBoard((Integer) (widthInput.getValue()), (Integer) (heightInput.getValue()), (Integer) (randomCells.getValue()));
         dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }
 

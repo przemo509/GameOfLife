@@ -23,10 +23,11 @@ public class Board {
     private int frame = 0;
     private int aliveCells = 0;
 
-    public Board(int width, int height) {
+    public Board(int width, int height, int randomCells) {
         this.width = width;
         this.height = height;
         board = createEmptyBoard(width, height);
+        addRandomCells(randomCells);
     }
 
     public Board(String filePath) {
@@ -63,6 +64,14 @@ public class Board {
         return board;
     }
 
+    private void addRandomCells(int randomCells) {
+        for (int i = 0; i < randomCells; i++) {
+            int randX = (int) Math.floor(Math.random() * width);
+            int randY = (int) Math.floor(Math.random() * height);
+            setCell(randX, randY, true);
+        }
+    }
+
     public int getWidth() {
         return width;
     }
@@ -76,9 +85,9 @@ public class Board {
     }
 
     public void setCell(int i, int j, boolean value) {
-        if(!board[i][j] && value) {
+        if (!board[i][j] && value) {
             aliveCells++;
-        } else if(board[i][j] && !value) {
+        } else if (board[i][j] && !value) {
             aliveCells--;
         }
         board[i][j] = value;
