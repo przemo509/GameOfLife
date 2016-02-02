@@ -29,12 +29,12 @@ public class NewEmptyBoardDialog extends JDialog {
     }
 
     private void addWidthInput() {
-        widthInput = new JSpinner(new SpinnerNumberModel(30, 10, Integer.MAX_VALUE, 1));
+        widthInput = new JSpinner(new SpinnerNumberModel(MainWindow.getInstance().getBoard().getWidth(), 10, Integer.MAX_VALUE, 1));
         addFormItem("Szerokość gry (liczba komórek)", widthInput);
     }
 
     private void addHeightInput() {
-        heightInput = new JSpinner(new SpinnerNumberModel(15, 10, Integer.MAX_VALUE, 1));
+        heightInput = new JSpinner(new SpinnerNumberModel(MainWindow.getInstance().getBoard().getHeight(), 10, Integer.MAX_VALUE, 1));
         addFormItem("Wysokość gry (liczba komórek)", heightInput);
     }
 
